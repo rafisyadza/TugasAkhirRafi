@@ -71,7 +71,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Data GeoJSON dari file Anda (potong atau ringkas untuk demo)
-fetch('Bahan/Kecamatan_Bandung.json')
+fetch('/Bahan/Kecamatan_Bandung.json')
     .then(response => response.json())
     .then(data => {
       L.geoJSON(data, {
@@ -90,25 +90,28 @@ fetch('Bahan/Kecamatan_Bandung.json')
     })
     .catch(err => console.error("Gagal memuat GeoJSON:", err));
 
-    fetch('Bahan/SPBU_Point.json')
+fetch('/Bahan/SPBU_Point.json')
   .then(response => response.json())
   .then(data => {
     L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
-        return L.marker(latlng);
+        return L.circleMarker(latlng, {
+          radius: 6,
+          fillColor: 'red',
+          color: '#fff',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+        });
       },
       onEachFeature: function (feature, layer) {
-        if (feature.properties && feature.properties.Nama_SPBU && feature.properties.Alamat__estimasi_) {
-          layer.bindPopup(
-            `<b>${feature.properties.Nama_SPBU}</b><br>` +
-            `Alamat: ${feature.properties.Alamat__estimasi_}`
-          );
+        if (feature.properties && feature.properties.NAMOBJ) {
+          layer.bindPopup("Kecamatan: " + feature.properties.NAMOBJ);
         }
       }
     }).addTo(map);
   })
   .catch(err => console.error("Gagal memuat GeoJSON:", err));
-
 
     </script>
 </body>
