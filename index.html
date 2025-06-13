@@ -71,7 +71,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Data GeoJSON dari file Anda (potong atau ringkas untuk demo)
-fetch('/Bahan/Gambar/Kecamatan_Bandung.json')
+fetch('Bahan/Kecamatan_Bandung.json')
     .then(response => response.json())
     .then(data => {
       L.geoJSON(data, {
@@ -90,7 +90,7 @@ fetch('/Bahan/Gambar/Kecamatan_Bandung.json')
     })
     .catch(err => console.error("Gagal memuat GeoJSON:", err));
 
-fetch('/Bahan/Gambar/SPBU_Point.json')
+fetch('Bahan/SPBU_Point.json')
   .then(response => response.json())
   .then(data => {
     L.geoJSON(data, {
